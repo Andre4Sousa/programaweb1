@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 public class UserDetailsImpl implements UserDetails{
 
     //    private User user; // Classe de usuário que criamos anteriormente
-    private Atendente atendente;
+    private Atendente user;
 
     public UserDetailsImpl(Atendente atendente) {
-        this.atendente = atendente;
+        this.user = atendente;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class UserDetailsImpl implements UserDetails{
          novo SimpleGrantedAuthority, que é uma implementação simples de
          GrantedAuthority
         */
-        return atendente.getRoles()
+        return user.getRoles()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
@@ -34,12 +34,12 @@ public class UserDetailsImpl implements UserDetails{
 
     @Override
     public String getPassword() {
-        return atendente.getSenha();
+        return user.getSenha();
     } // Retorna a credencial do usuário que criamos anteriormente
 
     @Override
     public String getUsername() {
-        return atendente.getLogin();
+        return user.getLogin();
     } // Retorna o nome de usuário do usuário que criamos anteriormente
 
     @Override

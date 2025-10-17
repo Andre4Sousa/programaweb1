@@ -22,4 +22,6 @@ public interface AtendenteRepository extends JpaRepository<Atendente, Integer> {
 
 
     Optional<Atendente> findByEmail(String login);
+
+    public Atendente findByUsuarioLogin(String subject);
 }

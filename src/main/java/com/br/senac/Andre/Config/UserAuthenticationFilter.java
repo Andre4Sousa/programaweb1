@@ -26,7 +26,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
     private JwtTokenService jwtTokenService; // Service que definimos anteriormente
 
 //    @Autowired
-//    private UserRepository userRepository; // Repository que definimos anteriormente
+   private AtendenteRepository userRepository; // Repository que definimos anteriormente
 
     @Autowired
     private AtendenteRepository alunoRepository; // Repository que definimos anteriormente
@@ -38,8 +38,8 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
             String token = recoveryToken(request); // Recupera o token do cabeçalho Authorization da requisição
             if (token != null) {
                 String subject = jwtTokenService.getSubjectFromToken(token); // Obtém o assunto (neste caso, o nome de usuário) do token
-                Atendente atendente = alunoRepository.findByEmail(subject).get(); // Busca o usuário pelo email (que é o assunto do token)
-                UserDetailsImpl userDetails = new UserDetailsImpl(atendente); // Cria um UserDetails com o usuário encontrado
+                Atendente user = userRepository.findByUsuarioLogin(subject); // Busca o usuário pelo email (que é o assunto do token)
+                UserDetailsImpl userDetails = new UserDetailsImpl(user); // Cria um UserDetails com o usuário encontrado
 
                 // Cria um objeto de autenticação do Spring Security
                 Authentication authentication =

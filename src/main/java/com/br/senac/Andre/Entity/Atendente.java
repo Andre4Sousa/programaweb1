@@ -1,7 +1,6 @@
 package com.br.senac.Andre.Entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,11 +22,14 @@ public class Atendente {
     @Column(name = "atendente_chave_acesso")
     private String senha;
 
-    @Column(name = "atendente_data_crição")
+    @Column(name = "atendente_data_criação")
     private LocalDateTime data;
 
     @Column(name = "atendente_ativo")
     private Integer status;
+
+    @OneToMany(mappedBy = "atendente")
+    List<ChamadaAtendente> chamadasAtendente;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name="atendente_role",
